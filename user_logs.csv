@@ -1,0 +1,28 @@
+Timestamp,Action,Value
+2025-06-14 15:42:52.664651,Product Filter,Headphones
+log_file = "user_logs.csv"
+if not os.path.exists(log_file) or os.path.getsize(log_file) == 0:
+    with open(log_file, "w") as f:
+        f.write("Timestamp,Action,Value\n")
+
+with open(log_file, "a") as f:
+    now = pd.Timestamp.now()
+    f.write(f"{now},Product Filter,{selected_product}\n")
+2025-06-14 15:56:27.510134,Product Filter,Headphones
+2025-06-14 15:56:40.127000,Product Filter,Headphones
+2025-06-14 15:56:41.966913,Product Filter,Headphones
+2025-06-14 16:04:10.557632,Product Filter,Mouse
+2025-06-14 16:04:13.290313,Product Filter,Keyboard
+2025-06-14 16:04:40.869500,Product Filter,Headphones
+2025-06-14 16:04:43.164988,Product Filter,Monitor
+2025-06-14 16:04:44.658582,Product Filter,Mouse
+2025-06-14 16:04:46.347672,Product Filter,Laptop
+2025-06-14 16:04:48.034660,Product Filter,Phone
+2025-06-14 16:04:50.033881,Product Filter,Keyboard
+2025-06-14 16:05:48.934648,Product Filter,Keyboard
+2025-06-14 16:07:04.987520,Product Filter,Keyboard
+2025-06-14 16:07:16.525081,Product Filter,Keyboard
+2025-06-14 16:13:58.079575,Product Filter,Headphones
+2025-06-14 16:19:57.826974,Product Filter,Headphones
+2025-06-14 16:21:11.372901,Product Filter,Headphones
+2025-06-14 16:27:01.098284,Product Filter,Headphones

@@ -1,0 +1,3 @@
+[server]
+headless = true
+# enableCORS = false  ← optional to remove

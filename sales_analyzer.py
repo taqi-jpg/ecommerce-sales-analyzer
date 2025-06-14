@@ -2,22 +2,51 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from fpdf import FPDF
 import os
+import streamlit as st
+import plotly.express as px
+
 
 # Load the generated data
 df = pd.read_csv("data/sales_data.csv")
 df['Order_Date'] = pd.to_datetime(df['Order_Date'])
 
-# 1. Monthly Sales Trend (Bar Chart)
-plt.figure(figsize=(10, 5))
-df['Month'] = df['Order_Date'].dt.strftime('%Y-%m')  # Format: "2023-01"
-monthly_sales = df.groupby('Month')['Sales'].sum()
-monthly_sales.plot(kind='bar', color='skyblue')
-plt.title("Monthly Sales (2023)")
-plt.xlabel("Month")
-plt.ylabel("Total Sales ($)")
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.savefig('assets/monthly_sales.png')  # Save the chart
+# 1. # 📅 Monthly Sales (Improved)
+st.subheader("📅 Monthly Sales (2023)")
+
+# Convert Order_Date if not already done
+df['Order_Date'] = pd.to_datetime(df['Order_Date'])
+
+# Extract month names
+df['Month'] = df['Order_Date'].dt.strftime('%B')  # January, February, etc.
+
+# Order the months properly
+month_order = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+]
+monthly_sales = df.groupby('Month')['Sales'].sum().reindex(month_order)
+
+# Plot
+
+# Optional: Convert numeric month to month names
+month_map = {
+    1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr',
+    5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug',
+    9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'
+}
+monthly_sales.index = monthly_sales.index.map(month_map)
+
+# Bonus Plotly Chart
+fig = px.bar(
+    monthly_sales.reset_index(),
+    x='Month', y='Sales',
+    title="📅 Monthly Sales (2023)",
+    labels={'Sales': 'Total Sales'},
+    color='Sales',
+    color_continuous_scale='Blues'
+)
+st.plotly_chart(fig)
+
 
 # 2. Top Selling Products (Pie Chart)
 plt.figure(figsize=(8, 8))
