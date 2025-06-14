@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.vscode/
+*.csv
+*.mp4
+assets/
+user_logs.csv
